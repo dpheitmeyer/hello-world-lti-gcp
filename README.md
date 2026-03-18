@@ -26,6 +26,7 @@ gcloud services enable \
   cloudbuild.googleapis.com \
   firestore.googleapis.com \
   secretmanager.googleapis.com \
+  run.googleapis.com \
   iam.googleapis.com \
   iamcredentials.googleapis.com
 ```
