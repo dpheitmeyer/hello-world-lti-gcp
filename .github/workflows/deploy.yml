@@ -1,0 +1,37 @@
+name: Deploy to Cloud Functions
+
+on:
+  push:
+    branches: [main]
+
+env:
+  GCP_PROJECT: your-gcp-project-id          # TODO: replace
+  FUNCTION_NAME: hello-world-lti
+  REGION: us-central1
+  FUNCTION_URL: https://REGION-PROJECT.cloudfunctions.net/hello-world-lti  # TODO: replace with actual URL after first deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID  # TODO: replace
+          service_account: SERVICE_ACCOUNT@PROJECT.iam.gserviceaccount.com  # TODO: replace
+
+      - uses: google-github-actions/deploy-cloud-functions@v3
+        with:
+          name: ${{ env.FUNCTION_NAME }}
+          runtime: python312
+          region: ${{ env.REGION }}
+          entry_point: app
+          environment_variables: |
+            GCP_PROJECT=${{ env.GCP_PROJECT }}
+            FUNCTION_URL=${{ env.FUNCTION_URL }}

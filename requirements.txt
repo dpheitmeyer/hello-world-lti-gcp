@@ -1,0 +1,6 @@
+functions-framework==3.*
+Flask==3.*
+PyLTI1p3==2.*
+google-cloud-firestore==2.*
+google-cloud-secret-manager==2.*
+jwcrypto==1.*
