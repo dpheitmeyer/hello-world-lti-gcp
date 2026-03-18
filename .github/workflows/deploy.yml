@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  GCP_PROJECT: your-gcp-project-id          # TODO: replace
+  GCP_PROJECT: experiments-davidh
   FUNCTION_NAME: hello-world-lti
   REGION: us-central1
   FUNCTION_URL: https://REGION-PROJECT.cloudfunctions.net/hello-world-lti  # TODO: replace with actual URL after first deploy
@@ -23,8 +23,8 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID  # TODO: replace
-          service_account: SERVICE_ACCOUNT@PROJECT.iam.gserviceaccount.com  # TODO: replace
+          workload_identity_provider: projects/841968238482/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+          service_account: github-deployer@experiments-davidh.iam.gserviceaccount.com
 
       - uses: google-github-actions/deploy-cloud-functions@v3
         with:
